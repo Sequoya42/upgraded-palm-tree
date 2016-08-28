@@ -17,13 +17,15 @@ void							verify_last(char *s)
 	int							i;
 
 	i = 0;
-	while (s[i++])
-		if (s[i] == EOL_CHAR)
+	if (s && *s)
+	{
+		while (s[i])
+		{
+		if (s[i] == EOL_CHAR || match_char(s[i], BREAK_CHAR))
 			s[i] = '\0';
-	i = 0;
-	while (s[i++])
-		if (match_char(s[i], BREAK_CHAR))
-			s[i] = '\0';
+		i++;
+		}
+	}
 }
 
 void							manage_label(char *s, t_core *core, int type)
@@ -108,5 +110,4 @@ void							manage_arg(int op, char *s, t_core *core)
 		determine_arg(arg[n], core, n, op);
 		n++;
 	}
-	// exit(0);
 }

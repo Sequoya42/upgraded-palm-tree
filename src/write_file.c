@@ -107,7 +107,7 @@ static t_fptr		toto[TYPE_LEN] =
 {
 	NULL,
 	&write_register, /* REGISTER */
-	&write_direct, /* DIRECT */
+	&write_direct,  /* DIRECT */
 	&write_indirect, /* INDIRECT */
 	&write_label, /* LABEL */
 	&write_operator, /* OPERATOR */
@@ -123,6 +123,22 @@ void							write_file(t_core *core)
 	while (t)
 	{
 		toto[t->type](core, t);
+		// if (t->type == OPERATOR){
+		// 	write_operator(core, t);
+		// }
+		// else if (t->type == REGISTER)
+		// {
+		// 	write_register(core, t);
+		// }
+		// else if (t->type == DIRECT)
+		// {
+		// 	write_direct(core, t);
+		// }
+		// else if (t->type == INDIRECT)
+		// {
+		// 	write_indirect(core, t);
+		// }
+		// (void)toto[t->type];
 		t = t->next;
 	}
 }

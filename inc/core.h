@@ -34,7 +34,6 @@ struct							s_core
 	header_t					*header;
 	t_token						*token;
 	t_label						*label;
-	// t_token						*first;	
 };
 
 struct							s_file
@@ -82,6 +81,7 @@ void							add_new_label(t_label **alst, t_label *new);
 void							manage_arg(int op, char *s, t_core *core);
 void							write_file(t_core *core);
 void							write_label(t_core *c, t_token *t);
+void							verify_last(char *s);
 t_file							*single_file(void);
 t_token							*test(t_token *t);
 t_label							*test_two(t_label *t);
