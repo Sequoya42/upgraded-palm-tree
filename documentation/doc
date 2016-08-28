@@ -1,0 +1,148 @@
+
+Example of .s :
+
+.name "stayin' alive"
+.comment "Ha, Ha, Ha, stayiiiiin' aliiiiiiiiiive"
+
+sti	r1, %:live, %1			;change live by the right value
+sti	r1, %:live2, %1			;change live by the right value
+ld	%1, r3
+ld	%33, r6
+#While (r2 < 10)
+forks:
+add	r2, r3, r2		;increment r2
+xor	r2, %15, r4		;if (r4) {carry = 0}
+live2:
+	live 	%4
+zjmp	%:endwhile		;if (carry)
+fork	%:forks
+ld	%0, r4			;carry = 1
+zjmp	%:forks
+#EndWhile
+endwhile:
+ld	%0, r4			;carry = 1
+
+live:
+live %4
+zjmp %:live
+*****************************************
+
+#define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"
+#define LABEL_CHAR				':'
+#define SEPARATOR_CHAR			','
+#define DIRECT_CHAR				'%'
+
+#define REG_NUMBER				16
+
+*****************************************
+		-----------------
+			INSTRUCTION
+		------------------
+Une instruction par ligne
+
+
+Instruction [3 elements] : 
+
+	- LABEL label_chars suivi de label_char [:]
+
+	-OPCODE
+
+	- PARAMS [séparés par SEPARATOR_CHAR [,]]
+
+Params: [3 types possibles]
+	
+	- Registre (r1 <-> rx avec x == REG_NUMBER [16])
+
+	- Direct : (représente valeur directe)
+	DIRECT_CHAR [%] +
+	int || label (précédé par LABEL_CHAR)
+
+	- Indirect : (représente valeur qui se trouve à l'adresse du param
+	relativemet au PC du processus courant)
+	valeur ou label (précédé par LABEL_CHAR)
+
+*****************************************
+
+Label ne peut avoir d'instruction aprés.
+Label ne peut être placé sur la ligne d'avant l'instruction qu'il concerne.
+
+COMMENT_CHAR [#] démarre un commentaire.
+
+*****************************************
+
+Champion comporte : NOM et DESCRIPTION présent aprés ligne avec marqueur
+#define NAME_CMD_STRING			".name"				==>	NOM
+#define COMMENT_CMD_STRING		".comment"			==> DESCRIPTION
+
+*****************************************
+
+#define IDX_MOD					(MEM_SIZE / 8)
+
+TOUS les adressages sont relatifs au PC et à IDX_MOD
+
+SAUF : lld, lldi, lfork
+
+*****************************************
+
+			INSTRUCTION:
+
+Nombre cycle
+représentation mnémonique
+Nombre de params
+Type de param
+
+--> decrient dans op.c
+les cycles sont TOUJOURS consommés.
+
+Tous les autres codes == NOPE
+
+
+*****************************************
+
+
+• L’exécutable commence toujours par un header, défini dans op.h par le type
+header_t
+
+
+
+typedef struct		header_s
+{
+  unsigned int		magic;
+  char				prog_name[PROG_NAME_LENGTH + 1];
+  unsigned int		prog_size;
+  char				comment[COMMENT_LENGTH + 1];
+}					header_t;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

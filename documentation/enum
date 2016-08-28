@@ -1,0 +1,11 @@
+typedef enum {
+	instruction; // operation
+	register;
+	direct;
+	indirect;
+}tokens;
+
+
+typedef struct s_token {
+	
+}t_token;
