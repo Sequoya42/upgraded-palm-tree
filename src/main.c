@@ -60,9 +60,9 @@ int								main(int ac, char **av)
 		ft_exit(NULL, "core", "bad alloc");
 	ft_init(core, av[1]);
 	ft_parse(core);
-	ft_putnbrendl(core->token->nb_bytes);
+	// ft_putnbrendl(core->token->nb_bytes);
 	// print_token(TKN_HEAD);
-	print_label(LBL_HEAD);
+	// print_label(LBL_HEAD);
 	return (0);
 }
 

@@ -62,7 +62,7 @@ struct							s_label
 	t_label						*next;
 };
 
-typedef void					(*t_fptr)(t_core *c);
+typedef void					(*t_fptr)(t_core *c, t_token *t);
 
 unsigned int					ft_endian(unsigned int val);
 int								match_array(char *s1);

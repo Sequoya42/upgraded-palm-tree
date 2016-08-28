@@ -54,6 +54,6 @@ void							write_label(t_core *c, t_token *t)
 		n = 0x00010000 - y;
 	}
 	k  = SWAP(n);
-	ft_print(KRED"z: %d\tsize: %d\t N\t%d\t k : %d\n"KNRM,z,t->nb_bytes , n, k);
+	// ft_print(KRED"z: %d\tsize: %d\t N\t%d\t k : %d\n"KNRM,z,t->nb_bytes , n, k);
 	write(c->output, &k, t->size);
 }

@@ -12,16 +12,6 @@
 
 #include "core.h"
 
-// static t_fptr		toto[TYPE_LEN] = 
-// {
-// 	&write_register, /* REGISTER */
-// 	NULL,  INDIRECT 
-// 	NULL, /* DIRECT */
-// 	NULL, /* LABEL */
-// 	NULL, /* OPERATOR */
-
-// };
-
 void							write_register(t_core *c, t_token *t)
 {
 	// int							w;
@@ -45,12 +35,10 @@ void							write_direct(t_core *c, t_token *t)
 	else
 	{
 	n = ft_atoi(s);
-	// n = SWAP(n);
-	if (t->size == 2)
+	if (t->size == T_DIR)
 		n = SWAP(n);
-	else if (t->size == 4)
+	else if (t->size == T_IND)
 		n = ft_endian(n);
-	ft_print("%s \tsize is \t%d\n", t->value, t->size);
 	write(c->output, &n, t->size);
 	}
 
@@ -59,29 +47,25 @@ void							write_direct(t_core *c, t_token *t)
 void							write_indirect(t_core *c, t_token *t)
 {
 	int n;
+	// int k;
 	char *s = t->value;
 	if (s[0] == LABEL_CHAR)
 		write_label(c, t);
 	else
 	{
 	n = ft_atoi(s);
-	// if (n < 0)
-	// {
-	// 	if (t->size == 2)
-	// 	n = SWAP(n);
-	// else if (t->size == 4)
-	// 	n = ft_endian(n);
-
-	// }
 	int y;
 	if (n < 0)
 	{
-		y = (~n) + 1;
-		n = 0x00010000 - y;
-		n = SWAP(n);
+		y = (~n);
+		y += 1;
+		n = (~y);
+		n = 0x10000 - y;
 	}
-
-
+	if (t->size == T_DIR)
+		n = SWAP(n);
+	else if (t->size == T_IND)
+		n = ft_endian(n);
 	write(c->output, &n, t->size);
 	}
 }
@@ -107,7 +91,6 @@ void							write_operator(t_core *core, t_token *t)
 	int							c;
 	int							r;
 
-	ft_colendl(t->value);
 	int k = match_array(t->value);
 	int n = GOT(k).params;
 	core->op_index = t->nb_bytes - t->size;
@@ -118,9 +101,18 @@ void							write_operator(t_core *core, t_token *t)
 	ft_putchar_fd(k, core->output);
 	if ((T_OPERATOR(k)) == 2)
 		ft_putchar_fd(r, core->output);
-	// {
-	// }
 }
+
+static t_fptr		toto[TYPE_LEN] = 
+{
+	NULL,
+	&write_register, /* REGISTER */
+	&write_direct, /* DIRECT */
+	&write_indirect, /* INDIRECT */
+	&write_label, /* LABEL */
+	&write_operator, /* OPERATOR */
+
+};
 
 void							write_file(t_core *core)
 {
@@ -130,22 +122,7 @@ void							write_file(t_core *core)
 	(void)core;
 	while (t)
 	{
-		if (t->type == OPERATOR){
-			write_operator(core, t);
-		}
-		else if (t->type == REGISTER)
-		{
-			write_register(core, t);
-		}
-		else if (t->type == DIRECT)
-		{
-			write_direct(core, t);
-		}
-		else if (t->type == INDIRECT)
-		{
-			write_indirect(core, t);
-		}
-		// (void)toto[t->type];
+		toto[t->type](core, t);
 		t = t->next;
 	}
 }
