@@ -1,13 +1,8 @@
-parse header better
-skip line comment and space
-====
 
-Take into account negative IND
-
-take better care of NEG in general
 
 See if DIR can be negative
 
-understand why swap or endian ? wtf
+Verify error case
 
+Free all shit
 

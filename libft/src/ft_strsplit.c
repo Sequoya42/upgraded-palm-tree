@@ -28,7 +28,7 @@ int			ft_count(char const *s, char c)
 	return (len);
 }
 
-char		**ft_sublen(char const *s, char c, char **tab, int nbl)
+void		ft_sublen(char const *s, char c, char **tab, int nbl)
 {
 	int		i;
 	int		j;
@@ -54,7 +54,6 @@ char		**ft_sublen(char const *s, char c, char **tab, int nbl)
 		i++;
 	}
 	tab[j] = NULL;
-	return (tab);
 }
 
 char		**ft_strsplit(const char *s, char c)
@@ -68,6 +67,6 @@ char		**ft_strsplit(const char *s, char c)
 	nbl = ft_count(s, c);
 	if (!(tab = (char **)malloc(sizeof(char *) * (nbl + 1))))
 		return (NULL);
-	tab = ft_sublen(s, c, tab, nbl);
+	ft_sublen(s, c, tab, nbl);
 	return (tab);
 }

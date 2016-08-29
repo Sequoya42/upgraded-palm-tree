@@ -74,7 +74,7 @@ void							write_header(t_core *core);
 void							get_instructions(t_core *core);
 void							match_operator(char *w, char *s, t_core *core);
 void							match_label(char *t, char *s, t_core *core);
-void						match_label_t(t_token *t, t_core *c);
+void							match_label_t(t_token *t, t_core *c);
 void							fill_token(int type, char *w, t_core *core);
 void							add_new(t_token **alst, t_token *new);
 void							add_new_label(t_label **alst, t_label *new);

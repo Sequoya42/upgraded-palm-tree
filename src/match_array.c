@@ -19,7 +19,6 @@ int								match_array(char *s1)
 	i = 1;
 	while (i <= AFF)
 	{
-		// if (!ft_strcmp(s1, g_code_name[i]))
 		if (!ft_strcmp(s1, g_op_tab[i - 1].name))
 			return (i);
 		i++;

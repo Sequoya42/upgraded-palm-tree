@@ -39,7 +39,6 @@ typedef struct		s_list
 
 size_t				ft_strlen(char const *s);
 size_t				ft_strlcat(char *dst, char const *src, size_t size);
-
 void				ft_init_tab(char **tab);
 void				ft_memdel(void **ap);
 void				ft_striter(char *s, void (*f)(char *));
@@ -73,6 +72,9 @@ void				ft_colstr(char *col, char *msg);
 void				ft_colendl(char *s);
 void				ft_strcol(char *col, char *o, char *t, char *l);
 void				ft_exit(char *name, char *arg, char *msg);
+void				ft_print_tab(char **tab);
+void				ft_trim_tab(char **tab);
+void				ft_print(char *s, ...);
 int					debug(void);
 int					ft_atoi(char const *str);
 int					ft_isalnum(int c);
@@ -90,9 +92,6 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 int					get_next_line(int const fd, char **line);
 int					ft_nb_tab(char **tab);
-void				ft_print_tab(char **tab);
-void				ft_trim_tab(char **tab);
-void				ft_print(char *s, ...);
 int					ft_error(char *name, char *arg, char *msg);
 int					match(char *s1, char *s2);
 int					match_char(char c, char *s1);

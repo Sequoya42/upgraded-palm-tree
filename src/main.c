@@ -40,16 +40,6 @@ void						print_label(t_label *tmp)
 	}
 }
 
-// & to find if match
-// T_REG						1
-// T_IND						2
-// T_REG | T_IND				3
-// T_DIR						4
-
-// T_REG | T_DIR				5
-// T_DIR | T_IND				6
-// T_REG | T_DIR | T_IND		7
-
 int								main(int ac, char **av)
 {
 	t_core				*core;
@@ -60,32 +50,6 @@ int								main(int ac, char **av)
 		ft_exit(NULL, "core", "bad alloc");
 	ft_init(core, av[1]);
 	ft_parse(core);
-	// ft_putnbrendl(core->token->nb_bytes);
-	// print_token(TKN_HEAD);
-	// print_label(LBL_HEAD);
+	sleep(1000);
 	return (0);
 }
-
-
-// 4 * 8
-// 00000000 00000000 00000000 00000000  || 00000010
-
-// 011010
-
-// int				main(void)
-// {
-// 	int a;
-// 	int b; 
-// 	int c;
-// 	int r;
-
-// 	a = REG_CODE;
-// 	b = DIR_CODE;
-// 	c = IND_CODE;
-// 	r = add_arg(a, b, b);
-// 	// r = (r <<2) + b;
-// 	// r = r << 2;
-// 	ft_putnbrendl(r);
-// 	char *s = ft_base(r, 2);
-// 	ft_putendl(s);
-// }

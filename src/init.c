@@ -25,6 +25,7 @@ static void						ft_prepare_header(t_core *core, char *arg)
 	while (arg[++i] != '.')
 		tmp[i] = arg[i];
 	core->name = ft_strjoin(tmp, ".cor");
+	free(tmp);
 }
 
 void							ft_init(t_core *core, char *arg)
@@ -48,5 +49,4 @@ void							ft_init(t_core *core, char *arg)
 	core->output = open(core->name, flag, 0644);
 	if (core->output <= -1)
 		ft_exit(NULL, NULL, "Could not create file .cor");
-	// core->token = NULL;
 }

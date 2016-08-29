@@ -35,20 +35,9 @@ static char						*get_quote(char *s)
 
 static char						*get_match(char *s, char *m)
 {
-	// char						*s;
-	char						t[128];
-	int							i;
-
-	i = -1;
-	while (m[++i])
-		t[i] = m[i];
-	t[i] = '*';
-	// s = ft_get_line(file);
-	if (!match(s, t))
-		ft_exit("Bad ", t, " header");
-	s = get_quote(s);
-	ft_putendl(s);
-	return (s);
+	if (!match(s, m))
+		ft_exit("Bad ", m, " header");
+	return (get_quote(s));
 
 }
 
@@ -62,7 +51,24 @@ static void						fill(header_t *h, char *t, char *t2)
 	i = -1;
 	while(t2[++i])
 		h->comment[i] = t2[i];
+	free(t);
+	free(t2);
+}
 
+
+char							*skipp(t_file *file)
+{
+	char						*s;
+	char						*x;
+
+	while ((s = ft_get_line(file)))
+	{
+		if ((x = ft_strtrim(s))[0] != '#')
+			break;
+		free(s);
+	}
+	free(s);
+	return (x);
 }
 
 void							get_header(header_t *h)
@@ -75,13 +81,11 @@ void							get_header(header_t *h)
 	file = single_file();
 	h->magic = 0xea83f3;
 	h->prog_size = 0;
-	while ((s = ft_get_line(file)))
-		if (ft_strtrim(s)[0] != '#')
-			break;
-	t = get_match(s, NAME_CMD_STRING);
-	while ((s = ft_get_line(file)))
-		if (ft_strtrim(s)[0] != '#')
-			break;
-	t2 = get_match(s, COMMENT_CMD_STRING);
+	s = skipp(file);
+	t = get_match(s, NAME_CMD_STRING "*");
+	free(s);
+	s = skipp(file);
+	t2 = get_match(s, COMMENT_CMD_STRING "*");
+	free(s);
 	fill(h, t, t2);
 }

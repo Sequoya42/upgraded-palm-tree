@@ -34,11 +34,14 @@ void		ft_print_tab(char **tab)
 void		ft_trim_tab(char **tab)
 {
 	int		i;
+	char	*t;
 
 	i = 0;
 	while (tab[i])
 	{
+		t = tab[i];
 		tab[i] = ft_strtrim(tab[i]);
+		free(t);
 		i++;
 	}
 }

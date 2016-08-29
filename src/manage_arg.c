@@ -21,9 +21,9 @@ void							verify_last(char *s)
 	{
 		while (s[i])
 		{
-		if (s[i] == EOL_CHAR || match_char(s[i], BREAK_CHAR))
-			s[i] = '\0';
-		i++;
+			if (s[i] == EOL_CHAR || match_char(s[i], BREAK_CHAR))
+				s[i] = '\0';
+			i++;
 		}
 	}
 }
@@ -108,6 +108,9 @@ void							manage_arg(int op, char *s, t_core *core)
 	while (arg[n])
 	{
 		determine_arg(arg[n], core, n, op);
+		ft_colendl(arg[n]);
+		free(arg[n]);
 		n++;
 	}
+	free(arg);
 }

@@ -39,7 +39,7 @@ char							*get_word(char **s)
 			return (ft_strsub(t, 0, (*s) - t));
 		(*s)++;
 	}
-	return (t);
+	return(ft_strdup(t));
 }
 
 char							*ft_get_line(t_file *file)
@@ -65,7 +65,10 @@ char							*ft_get_line(t_file *file)
 	file->index = i + 1;
 	file->line = line++;
 	if (is_blank(ret))
+	{
+		free(ret);
 		return (ft_get_line(file));
+	}
 	// print_local_info(file, ret);
 	return (ret);
 }

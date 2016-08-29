@@ -29,3 +29,4 @@ void		ft_clear_tab(char ***tab)
 		*tab = NULL;
 	}
 }
+

@@ -14,20 +14,18 @@
 
 void							write_register(t_core *c, t_token *t)
 {
-	// int							w;
 	int							n;
 	char						*s;
 
 	s = t->value + 1;
 	n = ft_atoi(s);
-	// n = SWAP(n);
 	ft_putchar_fd(n, c->output);
 }
 
 void							write_direct(t_core *c, t_token *t)
 {
 	char						*s;
-	unsigned int							n;
+	unsigned int				n;
 //DIRECT CANNOT BE NEGATIVE?
 	s = t->value + 1;
 	if (s[0] == LABEL_CHAR)
@@ -47,7 +45,7 @@ void							write_direct(t_core *c, t_token *t)
 void							write_indirect(t_core *c, t_token *t)
 {
 	int n;
-	// int k;
+
 	char *s = t->value;
 	if (s[0] == LABEL_CHAR)
 		write_label(c, t);
@@ -57,9 +55,7 @@ void							write_indirect(t_core *c, t_token *t)
 	int y;
 	if (n < 0)
 	{
-		y = (~n);
-		y += 1;
-		n = (~y);
+		y = (~n) + 1;
 		n = 0x10000 - y;
 	}
 	if (t->size == T_DIR)
