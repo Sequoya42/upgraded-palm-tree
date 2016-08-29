@@ -13,31 +13,29 @@
 
 #include "core.h"
 
-void							print_token(t_token *tmp)
+void							free_token(t_token *t, t_label *l, t_core *core)
 {
-	ft_colstr(KRED, "\t\t***TOKENS***\n");
-	while (tmp)
+	t_token						*tmp;
+	t_label						*tl;
+
+	tmp = NULL;
+	while (t)
 	{
-		if (tmp->type == LABEL)
-			ft_putstr(KRED);
-		else
-			ft_putstr(KGRN);
-		ft_print("Token name\t\t\t:"KNRM" %s\nsize: %d\t\tnb_byte: %d\n",
-		 tmp->value, tmp->size, tmp->nb_bytes);
-		tmp = tmp->next;
+		tmp = t;
+		t = t->next;
+		free(tmp->value);
+		free(tmp);
 	}
-
-}
-
-void						print_label(t_label *tmp)
-{
-	ft_colstr(KRED, "\t\t***LABEL***\n");
-
-	while (tmp)
+	while (l)
 	{
-		ft_print("Label name: \t"KGRN"%s"KNRM"\tnb_byte:"KYEL"\t%d\n", tmp->value, tmp->nb_bytes);
-		tmp = tmp->next;
+		tl = l;
+		l = l->next;
+		free(tl->value);
+		free(tl);
 	}
+	free(core->name);
+	free(core->header);
+	free(core);
 }
 
 int								main(int ac, char **av)
@@ -50,6 +48,6 @@ int								main(int ac, char **av)
 		ft_exit(NULL, "core", "bad alloc");
 	ft_init(core, av[1]);
 	ft_parse(core);
-	sleep(1000);
+	free_token(TKN_HEAD, LBL_HEAD, core);
 	return (0);
 }

@@ -32,28 +32,9 @@ char							*ft_base(unsigned int n, int b)
 		n /= b;
 	}
 	b = 8;
-	ft_colendl(ret);
 	while (i < b)
 		ret[i++] = '0';
 	while (i--)
 		r[j++] = ret[i];
 	return (r);
 }
-
-// void						ft_format(char *arv)
-// {
-// 	char ret[17];
-// 	char *av = ft_get(arv);
-// 	memset((void*)ret, 0, 17);
-// 	int j = 0;
-// 	int i = strlen(av) - 1;
-// 	while (i >= 0 )
-// 	{
-// 		ret[j++] +=  '\\';
-// 		ret[j++] += 'x';
-// 		ret[j++] = av[i - 1];
-// 		ret[j++] = av[i];
-// 		i -= 2;
-// 	}
-// 	printf("%s\n", ret);
-// }

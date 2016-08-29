@@ -108,7 +108,6 @@ void							manage_arg(int op, char *s, t_core *core)
 	while (arg[n])
 	{
 		determine_arg(arg[n], core, n, op);
-		ft_colendl(arg[n]);
 		free(arg[n]);
 		n++;
 	}

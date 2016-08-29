@@ -14,7 +14,6 @@
 
 int								get_nb_bytes(int type, int op)
 {
-	// ft_print(KRED "name : %s"KGRN"\t byte\t :"KNRM, GOT(op).name );
 	if (type == OPERATOR)
 		return (T_OPERATOR(op));
 	if (type == REGISTER)

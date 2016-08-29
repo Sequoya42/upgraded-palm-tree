@@ -19,6 +19,7 @@ void							ft_parse(t_core *core)
 	get_header(core->header);
 	get_instructions(core);
 	core->header->prog_size = core->token->nb_bytes;
+	free(core->file->content);
 	write_header(core);
 	write_file(core);
 }
