@@ -26,10 +26,10 @@ void							free_token(t_token *t, t_label *l, t_core *core)
 		free(tmp->value);
 		free(tmp);
 	}
-	while (l)
+	while ((l = l->next))
 	{
 		tl = l;
-		l = l->next;
+		// l = l->next;
 		free(tl->value);
 		free(tl);
 	}
