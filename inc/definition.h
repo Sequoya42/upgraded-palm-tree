@@ -16,12 +16,17 @@
 typedef enum e_code				t_opcode;
 
 # define BREAK_CHAR				"," " " "\t" "\0" "\r" "\n"
+# define NUM_CHAR				"-1234567890"
 # define GOT(x)					g_op_tab[x - 1]
 
-# define TKN_HEAD				test(NULL)
-# define LBL_HEAD				test_two(NULL)
+# define INT_MAX				2147483648l
+
+# define LEFT_SHIFT				0XFF00FF00
+# define RIGHT_SHIFT			0xFF00FF
+# define TKN_HEAD				token_head(NULL)
+# define LBL_HEAD				label_head(NULL)
 # define IS_IN(x, y, z)			(x == (x & GOT(y).arg[z]) ? 1 : 0)
-# define T_OPERATOR(x)			(x == LIVE || x == ZJMP || x == FORK || x == LFORK) ? 1 : 2
+# define T_OPERATOR(x)			(x == 1 || x == 9 || x == 12 || x == 15) ? 1 : 2
 # define DIR_OP(x)				(x == LLD || x <= XOR) ? T_IND : T_DIR
 # define IDIR_OP(x)				(x == LLD || x <= XOR) ? T_DIR : T_IND
 
@@ -41,7 +46,7 @@ enum							e_type
 	TYPE_LEN
 };
 
-enum							e_code 
+enum							e_code
 {
 	LIVE = 1,
 	LD,

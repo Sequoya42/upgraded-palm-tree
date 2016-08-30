@@ -12,7 +12,7 @@
 
 #include <core.h>
 
-t_token							*test(t_token *t)
+t_token							*token_head(t_token *t)
 {
 	static t_token				*ret;
 
@@ -21,7 +21,7 @@ t_token							*test(t_token *t)
 	return (ret);
 }
 
-t_label							*test_two(t_label *t)
+t_label							*label_head(t_label *t)
 {
 	static t_label				*ret;
 
@@ -40,7 +40,7 @@ void							add_new(t_token **alst, t_token *new)
 		{
 			*alst = new;
 			i = 1;
-			test(new);
+			token_head(new);
 		}
 		else
 		{
@@ -60,7 +60,7 @@ void							add_new_label(t_label **alst, t_label *new)
 		{
 			*alst = new;
 			i = 1;
-			test_two(new);
+			label_head(new);
 		}
 		else
 		{

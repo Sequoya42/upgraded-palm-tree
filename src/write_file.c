@@ -19,6 +19,8 @@ void							write_register(t_core *c, t_token *t)
 
 	s = t->value + 1;
 	n = ft_atoi(s);
+	if (n > REG_NUMBER || n < 0)
+		ft_exit(NULL, s, "Invalid register");
 	ft_putchar_fd(n, c->output);
 }
 
@@ -26,87 +28,68 @@ void							write_direct(t_core *c, t_token *t)
 {
 	char						*s;
 	unsigned int				n;
-//DIRECT CANNOT BE NEGATIVE?
+	long						l;
+
 	s = t->value + 1;
 	if (s[0] == LABEL_CHAR)
 		write_label(c, t);
 	else
 	{
-	n = ft_atoi(s);
-	if (t->size == T_DIR)
-		n = SWAP(n);
-	else if (t->size == T_IND)
-		n = ft_endian(n);
-	write(c->output, &n, t->size);
+		l = ft_atol(s) % INT_MAX;
+		n = l;
+		n = format_int(n, t->size);
+		write(c->output, &n, t->size);
 	}
-
 }
 
 void							write_indirect(t_core *c, t_token *t)
 {
-	int n;
+	int							n;
+	long						l;
+	char						*s;
 
-	char *s = t->value;
+	s = t->value;
 	if (s[0] == LABEL_CHAR)
 		write_label(c, t);
 	else
 	{
-	n = ft_atoi(s);
-	int y;
-	if (n < 0)
-	{
-		y = (~n) + 1;
-		n = 0x10000 - y;
+		l = ft_atol(s) % INT_MAX;
+		n = l % INT_MAX;
+		n = format_int(n, t->size);
+		write(c->output, &n, t->size);
 	}
-	if (t->size == T_DIR)
-		n = SWAP(n);
-	else if (t->size == T_IND)
-		n = ft_endian(n);
-	write(c->output, &n, t->size);
-	}
-}
-
-int								add_arg(int a, int b, int c)
-{
-	int							r;
-
-	r = 0;
-	r = (r + a);
-	r = r << 2;
-	r = (r + b);
-	r = r << 2;
-	r = (r + c);
-	r = r << 2;
-	return (r);
 }
 
 void							write_operator(t_core *core, t_token *t)
 {
 	int							a;
-	int							b;
-	int							c;
 	int							r;
+	int							k;
+	int							n;
 
-	int k = match_array(t->value);
-	int n = GOT(k).params;
+	r = 0;
+	k = match_array(t->value);
+	n = GOT(k).params;
 	core->op_index = t->nb_bytes - t->size;
 	a = (n >= 1) ? ARG_ONE->type : 0;
-	b = (n >= 2) ? ARG_TWO->type : 0;
-	c = (n >= 3) ? ARG_THREE->type : 0;
-	r = add_arg(a, b, c);
+	r = (r + a) << 2;
+	a = (n >= 2) ? ARG_TWO->type : 0;
+	r = (r + a) << 2;
+	a = (n >= 3) ? ARG_THREE->type : 0;
+	r = (r + a) << 2;
 	ft_putchar_fd(k, core->output);
 	if ((T_OPERATOR(k)) == 2)
 		ft_putchar_fd(r, core->output);
 }
 
-static t_fptr		toto[TYPE_LEN] = 
+static t_fptr		g_toto[TYPE_LEN] =
 {
 	NULL,
-	&write_register, /* REGISTER */
-	&write_direct,  /* DIRECT */
-	&write_indirect, /* INDIRECT */
-	&write_label, /* LABEL */
-	&write_operator, /* OPERATOR */
+	&write_register,
+	&write_direct,
+	&write_indirect,
+	&write_label,
+	&write_operator
 
 };
 
@@ -115,26 +98,9 @@ void							write_file(t_core *core)
 	t_token						*t;
 
 	t = TKN_HEAD;
-	(void)core;
 	while (t)
 	{
-		toto[t->type](core, t);
-		// if (t->type == OPERATOR){
-		// 	write_operator(core, t);
-		// }
-		// else if (t->type == REGISTER)
-		// {
-		// 	write_register(core, t);
-		// }
-		// else if (t->type == DIRECT)
-		// {
-		// 	write_direct(core, t);
-		// }
-		// else if (t->type == INDIRECT)
-		// {
-		// 	write_indirect(core, t);
-		// }
-		// (void)toto[t->type];
+		g_toto[t->type](core, t);
 		t = t->next;
 	}
 }

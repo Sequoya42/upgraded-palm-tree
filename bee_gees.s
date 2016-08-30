@@ -1,9 +1,9 @@
 .name "stayin' alive"
 .comment "Ha, Ha, Ha, stayiiiiin' aliiiiiiiiiive"
 	
-sti	r1, %:live, %1			;change live by the right value
-sti	r1, %:live2, %1			;change live by the right value
-ld	%1, r3
+sti	r1, %:live, %-2147483650			;change live by the right value
+sti	r1, %:live2, %12			;change live by the right value
+ld	%1, r3 #toto
 ld	%33, r6
 #While (r2 < 10)
 forks:

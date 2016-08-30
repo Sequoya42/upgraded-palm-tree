@@ -12,20 +12,38 @@
 
 #include "core.h"
 
-void							match_label(char *t, char *s, t_core *core)
+int								something_else(char *s)
+{
+	int							i;
+
+	i = 0;
+	if (!s || !*s)
+		return (0);
+	while (s[i])
+	{
+		if (match_char(s[i], LABEL_CHARS))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void							match_label(char *t, char **s, t_core *core)
 {
 	char						*w;
 	t_label						*n;
 
 	if (!(n = ft_memalloc(sizeof(t_label))))
 		ft_exit(NULL, NULL, "Bad alloc");
-	n->nb_bytes = core->token->nb_bytes;
-	n->value = ft_strsub(t, 0, ft_strlen(t) -1);
+	if (core->token)
+		n->nb_bytes = core->token->nb_bytes;
+	else
+		n->nb_bytes = 0;
+	n->value = ft_strsub(t, 0, ft_strlen(t) - 1);
 	add_new_label(&core->label, n);
-	verify_last(s);
-	if (*s)
+	if (something_else(*s))
 	{
-		w = get_word(&s);
-		match_operator(w, s, core);
+		w = get_word(s);
+		match_operator(w, *s, core);
 	}
 }

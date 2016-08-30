@@ -12,7 +12,6 @@
 
 #include "core.h"
 
-
 static char						*get_quote(char *s)
 {
 	int							i;
@@ -38,23 +37,21 @@ static char						*get_match(char *s, char *m)
 	if (!match(s, m))
 		ft_exit("Bad ", m, " header");
 	return (get_quote(s));
-
 }
 
-static void						fill(header_t *h, char *t, char *t2)
+static void						fill(t_header *h, char *t, char *t2)
 {
 	int							i;
 
 	i = -1;
-	while(t[++i])
+	while (t[++i] && (i < PROG_NAME_LENGTH))
 		h->prog_name[i] = t[i];
 	i = -1;
-	while(t2[++i])
+	while (t2[++i] && (i < COMMENT_LENGTH))
 		h->comment[i] = t2[i];
 	free(t);
 	free(t2);
 }
-
 
 char							*skipp(t_file *file)
 {
@@ -63,15 +60,16 @@ char							*skipp(t_file *file)
 
 	while ((s = ft_get_line(file)))
 	{
-		if ((x = ft_strtrim(s))[0] != '#')
-			break;
+		x = ft_strtrim(s);
+		if ((x[0] != COMMENT_CHAR && x[0] != EOL_CHAR))
+			break ;
 		free(s);
 	}
 	free(s);
 	return (x);
 }
 
-void							get_header(header_t *h)
+void							get_header(t_header *h)
 {
 	t_file						*file;
 	char						*t;

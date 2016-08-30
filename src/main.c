@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "core.h"
 
-void							free_token(t_token *t, t_label *l, t_core *core)
+void							free_rest(t_token *t, t_label *l, t_core *core)
 {
 	t_token						*tmp;
 	t_label						*tl;
@@ -26,13 +25,15 @@ void							free_token(t_token *t, t_label *l, t_core *core)
 		free(tmp->value);
 		free(tmp);
 	}
-	while ((l = l->next))
+	while (l)
 	{
 		tl = l;
-		// l = l->next;
+		l = l->next;
 		free(tl->value);
 		free(tl);
 	}
+	ft_print("%s created successfully [weighing %d bytes]\n", core->name,
+	core->header->prog_size);
 	free(core->name);
 	free(core->header);
 	free(core);
@@ -43,11 +44,11 @@ int								main(int ac, char **av)
 	t_core				*core;
 
 	if (ac != 2 || !match(av[1], "*.s"))
-		return ft_error(NULL, NULL, "Only one parameter [file.s]");
+		return (ft_error(NULL, NULL, "Only one parameter [file.s]"));
 	if (!(core = ft_memalloc(sizeof(t_core))))
 		ft_exit(NULL, "core", "bad alloc");
 	ft_init(core, av[1]);
 	ft_parse(core);
-	free_token(TKN_HEAD, LBL_HEAD, core);
+	free_rest(TKN_HEAD, LBL_HEAD, core);
 	return (0);
 }

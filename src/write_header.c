@@ -15,17 +15,11 @@
 void							fill_blank(int i, int fd)
 {
 	int							j;
+	char						t[i];
 
 	j = -1;
-	char t[i];
 	ft_bzero(t, i);
 	write(fd, t, i);
-}
-
-unsigned int					ft_endian(unsigned int val)
-{
-    val = ((val << 8) & 0xFF00FF00 ) | ((val >> 8) & 0xFF00FF ); 
-    return (val << 16) | (val >> 16);
 }
 
 void							write_header(t_core *core)

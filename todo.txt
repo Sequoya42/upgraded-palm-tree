@@ -1,8 +1,0 @@
-
-
-See if DIR can be negative
-
-Verify error case
-
-Free all shit
-

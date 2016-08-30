@@ -12,18 +12,23 @@
 
 #include "core.h"
 
-void							find_token(char *s, t_core *core)
+void							find_token(char **s, t_core *core)
 {
 	char						*w;
 
-	if ((w = get_word(&s)))
+	if ((w = get_word(s)))
 	{
+		ft_colendl(w);
 		if (match_array(w))
-			match_operator(w, s, core);
+			match_operator(w, *s, core);
 		else if (match(w, "*:"))
+		{
+			ft_putendl(w);
+			ft_putendl(*s);
 			match_label(w, s, core);
+		}
 		else
-			ft_exit(w, s, KGRN"\tNOPE nope NOPE! not valid");
+			ft_exit(w, *s, KGRN"\tNOPE nope NOPE! not valid");
 	}
 	free(w);
 }
@@ -31,12 +36,12 @@ void							find_token(char *s, t_core *core)
 void							get_instructions(t_core *core)
 {
 	char						*s;
+	void						*t;
 
-	void *t;
 	while ((s = ft_get_line(core->file)))
 	{
 		t = s;
-		find_token(s, core);
+		find_token(&s, core);
 		free(t);
 	}
 }

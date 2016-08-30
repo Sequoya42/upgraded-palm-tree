@@ -31,9 +31,6 @@ char							*ft_base(unsigned int n, int b)
 			ret[i++] = (n % b) + 55;
 		n /= b;
 	}
-	b = 8;
-	while (i < b)
-		ret[i++] = '0';
 	while (i--)
 		r[j++] = ret[i];
 	return (r);

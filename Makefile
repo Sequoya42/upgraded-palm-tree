@@ -43,6 +43,8 @@ SRC_NAME =		main.c\
 				fill_token.c\
 				add_new.c\
 				manage_arg.c\
+				ft_format.c\
+				manage_instructions.c\
 
 
 OBJ_NAME =		$(SRC_NAME:.c=.o)

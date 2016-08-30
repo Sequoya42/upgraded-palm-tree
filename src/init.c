@@ -12,15 +12,12 @@
 
 #include "core.h"
 
-
 static void						ft_prepare_header(t_core *core, char *arg)
 {
 	int							i;
-	int							flag;
 	char						*tmp;
 
 	i = -1;
-	flag = 0;
 	tmp = ft_memalloc(sizeof(char) * ft_strlen(arg) + 1);
 	while (arg[++i] != '.')
 		tmp[i] = arg[i];
@@ -31,9 +28,7 @@ static void						ft_prepare_header(t_core *core, char *arg)
 void							ft_init(t_core *core, char *arg)
 {
 	t_file						*file;
-	unsigned int				flag;
 
-	flag = 0;
 	file = single_file();
 	ft_prepare_header(core, arg);
 	if ((file->fd = open(arg, O_RDONLY)) <= -1)
@@ -45,8 +40,4 @@ void							ft_init(t_core *core, char *arg)
 		ft_exit(NULL, "file->content", "Bad alloc");
 	read(file->fd, file->content, file->size);
 	core->file = file;
-	flag |= O_CREAT | O_APPEND | O_WRONLY | O_TRUNC;
-	core->output = open(core->name, flag, 0644);
-	if (core->output <= -1)
-		ft_exit(NULL, NULL, "Could not create file .cor");
 }
