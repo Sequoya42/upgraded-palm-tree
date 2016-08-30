@@ -39,8 +39,7 @@ void				ft_print(char *s, ...)
 	va_end(argp);
 }
 
-
-void			msg_exit(char *s, ...)
+void				msg_exit(char *s, ...)
 {
 	int				i;
 	char			*t;

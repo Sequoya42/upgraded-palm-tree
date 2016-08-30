@@ -70,5 +70,5 @@ long			ft_atol(const char *str)
 		res = res + (str[i] - 48);
 		i++;
 	}
-	return (neg == 1 ? -res : res);	
+	return (neg == 1 ? -res : res);
 }

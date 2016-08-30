@@ -14,7 +14,7 @@
 
 CC =			gcc
 
-CFLAG =			-Wall -Wextra -Werror -g 
+CFLAG =			-Wall -Wextra -Werror
 
 NAME =			asm
 

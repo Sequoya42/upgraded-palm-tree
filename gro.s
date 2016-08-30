@@ -1,2 +1,0 @@
-.name "qwrg" 
-.comment "qegqegqg"
