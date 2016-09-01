@@ -47,6 +47,6 @@ void							write_label(t_core *c, t_token *t)
 	if (z == -1)
 		msg_exit("No such label : %s\t %d\n", t->value, t->type);
 	n = z - c->op_index;
-	n = format_int(n, t->type);
+	n = format_int(n, t->size);
 	write(c->output, &n, t->size);
 }

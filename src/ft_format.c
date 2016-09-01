@@ -48,9 +48,9 @@ int								format_int(int n, int size)
 		y = (~n) + 1;
 		n = size == T_DIR ? 0x10000 - y : - y; 
 	}
-	if (size == T_DIR)
+	if (size == IND_SIZE)
 		n = ft_swap(n);
-	else if (size == T_IND)
+	else if (size == DIR_SIZE)
 		n = ft_endian(n);
 	return (n);
 }

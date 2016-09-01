@@ -28,7 +28,7 @@ typedef enum e_code				t_opcode;
 # define IS_IN(x, y, z)			(x == (x & GOT(y).arg[z]) ? 1 : 0)
 # define T_OPERATOR(x)			(x == 1 || x == 9 || x == 12 || x == 15) ? 1 : 2
 # define DIR_OP(x)				(x == LLD || x <= XOR) ? T_IND : T_DIR
-# define IDIR_OP(x)				(x == LLD || x <= XOR) ? T_DIR : T_DIR
+# define IDIR_OP(x)				(x == LLD || x <= XOR) ? T_DIR : T_IND
 
 # define WRITE_INT(x)			ft_endian(x)
 # define SWAP(x)				((x >> 8) | (x << 8))

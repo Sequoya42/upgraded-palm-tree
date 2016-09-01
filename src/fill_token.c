@@ -16,12 +16,13 @@ int								get_nb_bytes(int type, int op)
 {
 	if (type == OPERATOR)
 		return (T_OPERATOR(op));
-	if (type == REGISTER)
+	else if (type == REGISTER)
 		return (T_REG);
-	if (type == DIRECT)
-		return (DIR_OP(op));
-	if (type == INDIRECT)
-		return (IDIR_OP(op));
+	else if (type == DIRECT)
+	return (g_op_tab[op - 1].idx_mod == 0 ? DIR_SIZE : IND_SIZE);
+	else if (type == INDIRECT)
+		return (IND_SIZE);
+		// return (g_op_tab[op - 1].idx_mod == 1 ? DIR_SIZE : IND_SIZE);
 	else
 		return (0);
 }
