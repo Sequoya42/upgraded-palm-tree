@@ -12,31 +12,51 @@
 
 #include "core.h"
 
+#if 0
+void FAIRE LE TRUC POUR LenRuLE AVEC PARENTHESE " " POUR \n
+	
+#endif
+
+static char						*get_last_quote(t_file *f, char *b)
+{
+	int							i;
+	char						*s;
+	char						*r;
+
+	r = b;
+	while((s = ft_get_line(f)))
+	{
+		i = -1;
+		while (s[++i])
+		{
+			if (s[i] == '"')
+			{
+				return (ft_strjoin(r, ft_strsub(s, 0, i)));
+			}
+		}
+		r = ft_strjoin(b, s);
+	}
+	msg_exit("Error in header");
+	return (NULL);
+}
+
 static char						*get_quote(char *s)
 {
 	int							i;
 	int							j;
 
 	i = 0;
-	j = 0;
+	j = -1;
 	while (s[i++])
 	{
 		if (s[i] == '"')
 		{
-			if (j != 0)
+			if (j != -1)
 				return (ft_strsub(s, j + 1, i - j - 1));
 			j = i;
 		}
 	}
-	ft_exit(NULL, NULL, "Syntax error");
-	return (NULL);
-}
-
-static char						*get_match(char *s, char *m)
-{
-	if (!match(s, m))
-		ft_exit("Bad ", m, " header");
-	return (get_quote(s));
+	return (get_last_quote(single_file(), ft_strsub(s, j + 1, i - j - 1)));
 }
 
 static void						fill(t_header *h, char *t, char *t2)
@@ -80,10 +100,14 @@ void							get_header(t_header *h)
 	h->magic = 0xea83f3;
 	h->prog_size = 0;
 	s = skipp(file);
-	t = get_match(s, NAME_CMD_STRING "*");
+	if (!match(s, NAME_CMD_STRING "*"))
+		ft_exit("Bad ", NAME_CMD_STRING "*", " header");
+	t = get_quote(s);
 	free(s);
 	s = skipp(file);
-	t2 = get_match(s, COMMENT_CMD_STRING "*");
+	if (!match(s, COMMENT_CMD_STRING "*"))
+		ft_exit("Bad ", COMMENT_CMD_STRING "*", " header");
+	t2 = get_quote(s);
 	free(s);
 	fill(h, t, t2);
 }

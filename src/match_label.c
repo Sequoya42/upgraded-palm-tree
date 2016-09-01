@@ -44,6 +44,7 @@ void							match_label(char *t, char **s, t_core *core)
 	if (something_else(*s))
 	{
 		w = get_word(s);
-		match_operator(w, *s, core);
+		if (w)
+			match_operator(w, *s, core);
 	}
 }

@@ -17,14 +17,15 @@ int								get_offset(char *s)
 	t_label						*l;
 
 	l = LBL_HEAD;
-	s = s + 2;
 	while (l)
 	{
 		if (!ft_strcmp(s, l->value))
+		{
 			return ((l->nb_bytes));
+		}
 		l = l->next;
 	}
-	return (0);
+	return (-1);
 }
 
 void							write_label(t_core *c, t_token *t)
@@ -34,7 +35,17 @@ void							write_label(t_core *c, t_token *t)
 	char						*s;
 
 	s = (t->type == DIRECT) ? (t->value + 2) : (t->value + 1);
-	z = get_offset(t->value);
+
+	// if (t->type == DIRECT)
+	// 	s = ft_strdup(t->value + 2);
+	// else
+	// {
+	// ft_print("type: %d\tt value is \t%s\n", t->type, t->value + 1);
+	// 	s = ft_strdup(t->value + 1);
+	// }
+	z = get_offset(s);
+	if (z == -1)
+		msg_exit("No such label : %s\t %d\n", t->value, t->type);
 	n = z - c->op_index;
 	n = format_int(n, t->type);
 	write(c->output, &n, t->size);

@@ -14,10 +14,8 @@
 
 unsigned int					ft_endian(unsigned int val)
 {
-	unsigned int				r;
-
-	r = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF);
-	return ((r << 16) | (r >> 16));
+	val = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF);
+	return ((val << 16) | (val >> 16));
 }
 
 void							verify_last(char *s)
@@ -36,6 +34,11 @@ void							verify_last(char *s)
 	}
 }
 
+unsigned int					ft_swap(unsigned int val)
+{
+	return ((val << 8) | (val >> 8));
+}
+
 int								format_int(int n, int size)
 {
 	int							y;
@@ -43,10 +46,10 @@ int								format_int(int n, int size)
 	if (n < 0)
 	{
 		y = (~n) + 1;
-		n = 0x00010000 - y;
+		n = size == T_DIR ? 0x10000 - y : - y; 
 	}
 	if (size == T_DIR)
-		n = SWAP(n);
+		n = ft_swap(n);
 	else if (size == T_IND)
 		n = ft_endian(n);
 	return (n);

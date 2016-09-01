@@ -18,15 +18,10 @@ void							find_token(char **s, t_core *core)
 
 	if ((w = get_word(s)))
 	{
-		ft_colendl(w);
 		if (match_array(w))
 			match_operator(w, *s, core);
 		else if (match(w, "*:"))
-		{
-			ft_putendl(w);
-			ft_putendl(*s);
 			match_label(w, s, core);
-		}
 		else
 			ft_exit(w, *s, KGRN"\tNOPE nope NOPE! not valid");
 	}

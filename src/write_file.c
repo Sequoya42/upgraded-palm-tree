@@ -35,7 +35,7 @@ void							write_direct(t_core *c, t_token *t)
 		write_label(c, t);
 	else
 	{
-		l = ft_atol(s) % INT_MAX;
+		l = ft_atol(s);
 		n = l;
 		n = format_int(n, t->size);
 		write(c->output, &n, t->size);
@@ -53,8 +53,8 @@ void							write_indirect(t_core *c, t_token *t)
 		write_label(c, t);
 	else
 	{
-		l = ft_atol(s) % INT_MAX;
-		n = l % INT_MAX;
+		l = ft_atol(s);
+		n = l;
 		n = format_int(n, t->size);
 		write(c->output, &n, t->size);
 	}
