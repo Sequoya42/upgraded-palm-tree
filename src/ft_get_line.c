@@ -32,7 +32,7 @@ char							*get_word(char **s)
 	return (ft_strdup(t));
 }
 
-char							*ft_get_line(t_file *file)
+char							*ft_get_line(t_file *file, char b)
 {
 	static int					line = 0;
 	int							i;
@@ -45,17 +45,17 @@ char							*ft_get_line(t_file *file)
 		return (NULL);
 	while (s[i])
 	{
-		if (s[i] == '\n')
+		if (s[i] == b)
 			break ;
 		i++;
 	}
 	ret = ft_strsub(s, file->index, i - file->index);
 	file->index = i + 1;
 	file->line = line++;
-	if (is_blank(ret))
+	if (b == '\n' && is_blank(ret))
 	{
 		free(ret);
-		return (ft_get_line(file));
+		return (ft_get_line(file, b));
 	}
 	return (ret);
 }

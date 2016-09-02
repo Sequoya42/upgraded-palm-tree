@@ -35,14 +35,6 @@ void							write_label(t_core *c, t_token *t)
 	char						*s;
 
 	s = (t->type == DIRECT) ? (t->value + 2) : (t->value + 1);
-
-	// if (t->type == DIRECT)
-	// 	s = ft_strdup(t->value + 2);
-	// else
-	// {
-	// ft_print("type: %d\tt value is \t%s\n", t->type, t->value + 1);
-	// 	s = ft_strdup(t->value + 1);
-	// }
 	z = get_offset(s);
 	if (z == -1)
 		msg_exit("No such label : %s\t %d\n", t->value, t->type);

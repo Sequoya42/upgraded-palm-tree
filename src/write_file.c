@@ -78,7 +78,7 @@ void							write_operator(t_core *core, t_token *t)
 	a = (n >= 3) ? ARG_THREE->type : 0;
 	r = (r + a) << 2;
 	ft_putchar_fd(k, core->output);
-	if ((T_OPERATOR(k)) == 2)
+	if (g_op_tab[k - 1].op_mod == 1)
 		ft_putchar_fd(r, core->output);
 }
 

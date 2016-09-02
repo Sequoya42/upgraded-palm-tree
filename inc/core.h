@@ -66,7 +66,7 @@ typedef void				(*t_fptr)(t_core *c, t_token *t);
 unsigned int				ft_endian(unsigned int val);
 int							format_int(int n, int size);
 int							match_array(char *s1);
-char						*ft_get_line(t_file *file);
+char						*ft_get_line(t_file *file, char b);
 char						*get_word(char **s);
 void						ft_init(t_core *core, char *arg);
 void						ft_parse(t_core *core);

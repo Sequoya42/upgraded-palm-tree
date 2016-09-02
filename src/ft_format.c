@@ -46,7 +46,7 @@ int								format_int(int n, int size)
 	if (n < 0)
 	{
 		y = (~n) + 1;
-		n = size == T_DIR ? 0x10000 - y : - y; 
+		n = size == T_DIR ? 0x10000 - y : -y;
 	}
 	if (size == IND_SIZE)
 		n = ft_swap(n);

@@ -12,7 +12,6 @@
 
 #include "core.h"
 
-
 int								little_thing(char **s)
 {
 	int							n;
@@ -25,7 +24,7 @@ int								little_thing(char **s)
 		if ((*s)[n] == COMMENT_CHAR || (*s)[n] == EOL_CHAR)
 		{
 			(*s)[n] = '\0';
-			break;
+			break ;
 		}
 		if ((*s)[n] == SEPARATOR_CHAR)
 			j++;

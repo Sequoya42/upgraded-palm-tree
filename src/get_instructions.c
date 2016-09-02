@@ -33,7 +33,7 @@ void							get_instructions(t_core *core)
 	char						*s;
 	void						*t;
 
-	while ((s = ft_get_line(core->file)))
+	while ((s = ft_get_line(core->file, '\n')))
 	{
 		t = s;
 		find_token(&s, core);

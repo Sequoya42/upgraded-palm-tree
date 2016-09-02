@@ -54,8 +54,8 @@ typedef struct					s_op_tab
 	unsigned int				op_code;
 	unsigned int				cycle;
 	char						*action;
-	unsigned int				carry;
-	unsigned int				idx_mod;
+	unsigned int				op_mod;
+	unsigned int				dir_mod;
 }								t_op;
 
 extern t_op g_op_tab[17];
