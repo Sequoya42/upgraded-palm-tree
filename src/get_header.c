@@ -28,22 +28,6 @@ static void						fill(t_header *h, char *t, char *t2)
 	free(t2);
 }
 
-char							*skipp(t_file *file)
-{
-	char						*s;
-	char						*x;
-
-	while ((s = ft_get_line(file, '"')))
-	{
-		x = ft_strtrim(s);
-		if ((x[0] != COMMENT_CHAR && x[0] != EOL_CHAR))
-			break ;
-		free(s);
-	}
-	free(s);
-	return (x);
-}
-
 void							get_header(t_header *h)
 {
 	t_file						*file;
@@ -54,15 +38,18 @@ void							get_header(t_header *h)
 	file = single_file();
 	h->magic = COREWAR_EXEC_MAGIC;
 	h->prog_size = 0;
-	s = skipp(file);
-	if (!match(s, NAME_CMD_STRING "*"))
+	s = ft_get_line(file, '"');
+	if (!match(s, "*" NAME_CMD_STRING "*"))
+	{
+		ft_print(KRED "%s\n", s);
 		ft_exit("Bad ", NAME_CMD_STRING "*", " header");
-	t = skipp(file);
+	}
+	t = ft_get_line(file, '"');
 	free(s);
-	s = skipp(file);
-	if (!match(s, COMMENT_CMD_STRING "*"))
+	s = ft_get_line(file, '"');
+	if (!match(s, "*" COMMENT_CMD_STRING "*"))
 		ft_exit(s, "\t" COMMENT_CMD_STRING "*", " header");
-	t2 = skipp(file);
+	t2 = ft_get_line(file, '"');
 	free(s);
 	fill(h, t, t2);
 }
